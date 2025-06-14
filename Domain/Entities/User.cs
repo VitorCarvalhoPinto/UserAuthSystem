@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
     public class User
     {
-        public Guid Id { get; set; } = new Guid(); // Default to a new Guid
+        public Guid Id { get; set; } = Guid.NewGuid(); // padrão novo guid
         public string Name { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }

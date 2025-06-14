@@ -17,7 +17,7 @@ namespace Application.Services
         IUserRepository _userRepository;
         IMapper _mapper;
         IJwtService _jwtService;
-        public UserService(IUserRepository userRepository, IMapper mapper, JwtService jwtService) 
+        public UserService(IUserRepository userRepository, IMapper mapper, IJwtService jwtService) 
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -31,7 +31,8 @@ namespace Application.Services
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash),
                 Name = user.Name,
             };
-            return _mapper.Map<UserCreateDTO>(_userRepository.CreateAsync(userEntity));
+            var createdUser = await _userRepository.CreateAsync(userEntity);
+            return _mapper.Map<UserCreateDTO>(createdUser);
         }
 
         public async Task<string> UserLogin(UserLoginDTO user)

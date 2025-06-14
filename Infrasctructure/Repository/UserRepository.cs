@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Infrasctructure.Repository
 
         public async Task<User> FindByEmailAsync(string email)
         {
-            return await _context.User.FindAsync(email);
+            return await _context.User.FirstOrDefaultAsync(u => u.Email == email);
 
         }
     }
