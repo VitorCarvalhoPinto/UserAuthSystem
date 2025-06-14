@@ -23,7 +23,7 @@ namespace Application.Services
             _mapper = mapper;
             _jwtService = jwtService;
         }
-        public async Task<UserCreateDTO> UserCreate(UserCreateDTO user)
+        public async Task<UserResponseDTO> UserCreate(UserCreateDTO user)
         {
             var userEntity = new User
             {
@@ -31,8 +31,9 @@ namespace Application.Services
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash),
                 Name = user.Name,
             };
+            //verificar se email ja existe
             var createdUser = await _userRepository.CreateAsync(userEntity);
-            return _mapper.Map<UserCreateDTO>(createdUser);
+            return _mapper.Map<UserResponseDTO>(createdUser);
         }
 
         public async Task<string> UserLogin(UserLoginDTO user)

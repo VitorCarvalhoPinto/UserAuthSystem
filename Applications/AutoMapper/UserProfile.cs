@@ -15,6 +15,7 @@ namespace Application.AutoMapper
         {
             CreateMap<User, UserCreateDTO>().ReverseMap();
             CreateMap<User, UserLoginDTO>().ReverseMap();
+            CreateMap<User, UserResponseDTO>();
         }   
 
     }

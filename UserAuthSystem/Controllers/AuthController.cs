@@ -16,11 +16,31 @@ namespace UserAuthSystem.Controllers
             _userService = userService;
         }
         [HttpPost("/auth")]
-        public async Task<IActionResult> UserRegister([FromBody] UserCreateDTO user) 
+        public async Task<IActionResult> UserRegister([FromBody] UserCreateDTO user)
         {
-            await _userService.UserCreate(user);
-            return CreatedAtAction(nameof(UserRegister), new { name = user.Name }, user);
+            try
+            {
+                var createdUser = await _userService.UserCreate(user);
+                return CreatedAtAction(nameof(UserRegister), new { name = createdUser.Name }, createdUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
+        [HttpPost("/login")]
+        public async Task<IActionResult> UserLogin([FromBody] UserLoginDTO user)
+        {
+            try
+            {
+                string token = await _userService.UserLogin(user);
+                return Ok(new { Token = token });
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
     }
 }
