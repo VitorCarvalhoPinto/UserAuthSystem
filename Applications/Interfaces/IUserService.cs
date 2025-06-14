@@ -10,6 +10,6 @@ namespace Application.Interfaces
     public interface IUserService
     {
         Task<UserResponseDTO> UserCreate(UserCreateDTO user);
-        Task<string> UserLogin(UserLoginDTO user);
+        Task<UserLoginResponseDTO> UserLogin(UserLoginDTO user);
     }
 }

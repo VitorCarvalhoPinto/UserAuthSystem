@@ -34,7 +34,7 @@ namespace UserAuthSystem.Controllers
         {
             try
             {
-                string token = await _userService.UserLogin(user);
+                UserLoginResponseDTO token = await _userService.UserLogin(user);
                 return Ok(new { Token = token });
             }
             catch (Exception ex)
